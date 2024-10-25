@@ -78,25 +78,11 @@ to Research Page</button>
 <br>
 <br>
 <br>
-<p id="date">Today's Date: Friday, October 25, 2024</p>
-<p class="time" id="time">Current Time: 12:51:02 PM</p>
+<br>
+<p class="time" id="time"><br>
+</p>
 </div>
-<script>
-function updateDateTime() {
-var now = new Date();
-var date = now.toLocaleDateString();
-var time = now.toLocaleTimeString();
 
-document.getElementById('date').innerHTML = "Today's Date: " + date;
-document.getElementById('time').innerHTML = "Current Time: " + time;
-}
-
-// Update the date and time every second
-setInterval(updateDateTime, 1000);
-// Call the function immediately to display the date and time on load
-updateDateTime();
-</script>
-</div>
 </body>
 </html>
 
