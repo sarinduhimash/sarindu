@@ -1,63 +1,89 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .content {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #333;
-        }
-        .time {
-            font-size: 24px;
-            margin-top: 20px;
-            color: #555;
-        }
-    </style>
+<meta content="text/html; charset=ISO-8859-1"
+http-equiv="content-type">
+<title></title>
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <h1>Welcome to My Website</h1>
-            <p id="date"></p>
-            <p class="time" id="time"></p>
-        </div>
-    </div>
+<br>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Page</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+text-align: center;
+background-color: #f0f0f0;
+margin: 0;
+padding: 0;
+}
+.container {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+.content {
+background-color: #ffffff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+color: #333;
+}
+.time {
+font-size: 24px;
+margin-top: 20px;
+color: #555;
+}
+</style>
+<div class="container">
+<div class="content">
+<h1>This website is under maintenance ...</h1>
+<big style="color: rgb(204, 0, 0);"><big><span
+style="font-weight: bold;">mainly for undergrad research purposes .</span></big></big><br>
+<br>
+<br>
+<br>
+<p id="date">Today's Date: Friday, October 25, 2024</p>
+<p class="time" id="time">Current Time: 12:33:48 PM</p>
+</div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirect Button</title>
+<style>
+.redirect-button {
+background-color: #4CAF50; /* Green background */
+color: white; /* White text */
+padding: 10px 20px; /* Button padding */
+border: none; /* Remove border */
+border-radius: 5px; /* Rounded corners */
+cursor: pointer; /* Pointer cursor on hover */
+font-size: 16px;
+}
+.redirect-button:hover {
+background-color: #45a049; /* Darker green on hover */
+}
+</style>
+<button class="redirect-button" onclick="location.href='research.html'">Go
+to Research Page</button>
+</div>
+<script>
+function updateDateTime() {
+var now = new Date();
+var date = now.toLocaleDateString();
+var time = now.toLocaleTimeString();
 
-    <script>
-        function updateDateTime() {
-            var now = new Date();
-            var date = now.toLocaleDateString();
-            var time = now.toLocaleTimeString();
+document.getElementById('date').innerHTML = "Today's Date: " + date;
+document.getElementById('time').innerHTML = "Current Time: " + time;
+}
 
-            document.getElementById('date').innerHTML = "Today's Date: " + date;
-            document.getElementById('time').innerHTML = "Current Time: " + time;
-        }
-
-        // Update the date and time every second
-        setInterval(updateDateTime, 1000);
-        // Call the function immediately to display the date and time on load
-        updateDateTime();
-    </script>
+// Update the date and time every second
+setInterval(updateDateTime, 1000);
+// Call the function immediately to display the date and time on load
+updateDateTime();
+</script>
 </body>
 </html>
+
