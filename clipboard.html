@@ -3,83 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cross-Device Message Board</title>
-    <style>
-        #messages {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #f9f9f9;
-        }
-        .message {
-            padding: 5px;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 5px;
-        }
-    </style>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <meta http-equiv="refresh" content="0; url=https://www.toptal.com/developers/hastebin">
+    <title>Redirecting...</title>
 </head>
 <body>
-    <h1>Cross-Device Message Board</h1>
-    <div id="messages"></div>
-    <textarea id="messageInput" placeholder="Type a message..."></textarea>
-    <br>
-    <button onclick="postMessage()">Post Message</button>
-
-    <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAyxBi4IbbhejxEYgsNn1jNwm58LaIJfHk",
-            authDomain: "clipboard-d9f13.firebaseapp.com",
-            databaseURL: "https://clipboard-d9f13-default-rtdb.firebaseio.com",
-            projectId: "clipboard-d9f13",
-            storageBucket: "clipboard-d9f13.appspot.com",
-            messagingSenderId: "368901462318",
-            appId: "1:368901462318:web:6a709e5c88cd59c19782bf"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // Reference to messages in the database
-        const messagesRef = database.ref('messages');
-
-        // Load existing messages and listen for new ones
-        messagesRef.on('child_added', snapshot => {
-            const message = snapshot.val();
-            displayMessage(message);
-        });
-
-        // Display a single message
-        function displayMessage(message) {
-            const messagesDiv = document.getElementById('messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
-            messageDiv.textContent = message;
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to latest message
-        }
-
-        // Post a new message to the Firebase Realtime Database
-        function postMessage() {
-            const messageInput = document.getElementById('messageInput');
-            const newMessage = messageInput.value.trim();
-
-            if (newMessage) {
-                messagesRef.push(newMessage)  // Push the new message to Firebase
-                    .then(() => {
-                        messageInput.value = ''; // Clear the input
-                    })
-                    .catch(error => {
-                        console.error('Error writing new message to Firebase', error);
-                    });
-            }
-        }
-    </script>
+    <p>If you are not redirected, <a href="https://www.toptal.com/developers/hastebin">click here</a>.</p>
 </body>
 </html>
