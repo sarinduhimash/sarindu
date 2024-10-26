@@ -93,7 +93,7 @@
                 if (response.ok) {
                     const gist = await response.json();
                     const currentContent = gist.files['messages.txt'].content;
-                    const updatedContent = currentContent + '\n' + newMessage; // Append the new message
+                    const updatedContent = currentContent + '\n' + newMessage;
 
                     // Save the updated content back to the Gist
                     const saveResponse = await fetch(`https://api.github.com/gists/${d7e5242be9ba4317951d62e1d0db7251}`, {
