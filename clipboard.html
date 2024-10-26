@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Clipboard</title>
+</head>
+<body>
+    <h1>Online Clipboard</h1>
+    <textarea id="clipboard" placeholder="Type here..."></textarea>
+    <br>
+    <button onclick="saveContent()">Save</button>
+    <button onclick="loadContent()">Load</button>
+    <p id="status"></p>
+
+    <script>
+        // Replace these with your values
+        const GITHUB_TOKEN = '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';
+        const GIST_ID = 'd7e5242be9ba4317951d62e1d0db7251';
+
+        async function saveContent() {
+            const content = document.getElementById('clipboard').value;
+            
+            try {
+                const response = await fetch(`https://api.github.com/gists/${d7e5242be9ba4317951d62e1d0db7251}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `token ${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}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        files: {
+                            'clipboard.txt': { content }
+                        }
+                    })
+                });
+                
+                if (response.ok) {
+                    document.getElementById('status').innerText = "Content saved to GitHub!";
+                } else {
+                    document.getElementById('status').innerText = "Error saving content.";
+                }
+            } catch (error) {
+                document.getElementById('status').innerText = "Failed to save content.";
+                console.error(error);
+            }
+        }
+
+        async function loadContent() {
+            try {
+                const response = await fetch(`https://api.github.com/gists/${d7e5242be9ba4317951d62e1d0db7251}`, {
+                    headers: {
+                        'Authorization': `token ${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}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const gist = await response.json();
+                    const content = gist.files['clipboard.txt'].content;
+                    document.getElementById('clipboard').value = content;
+                    document.getElementById('status').innerText = "Content loaded from GitHub!";
+                } else {
+                    document.getElementById('status').innerText = "Error loading content.";
+                }
+            } catch (error) {
+                document.getElementById('status').innerText = "Failed to load content.";
+                console.error(error);
+            }
+        }
+
+        // Auto-load content on page load
+        window.onload = loadContent;
+    </script>
+</body>
+</html>
