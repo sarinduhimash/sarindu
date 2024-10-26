@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anonymous Message Board</title>
+    <title>Cross-Device Message Board</title>
     <style>
         #messages {
             max-height: 300px;
@@ -19,104 +19,60 @@
             margin-bottom: 5px;
         }
     </style>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 </head>
 <body>
-    <h1>Anonymous Message Board</h1>
+    <h1>Cross-Device Message Board</h1>
     <div id="messages"></div>
     <textarea id="messageInput" placeholder="Type a message..."></textarea>
     <br>
     <button onclick="postMessage()">Post Message</button>
-    <p id="status"></p>
 
     <script>
-        const GITHUB_TOKEN = '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';
-        const GIST_ID = 'd7e5242be9ba4317951d62e1d0db7251';
+        // Firebase configuration (replace with your own Firebase config object)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAyxBi4IbbhejxEYgsNn1jNwm58LaIJfHk",
+            authDomain: "clipboard-d9f13.firebaseapp.com",
+            databaseURL: "https://clipboard-d9f13-default-rtdb.firebaseio.com`",
+            projectId: "clipboard-d9f13",
+            storageBucket: "clipboard-d9f13.appspot.com",
+            messagingSenderId: "368901462318",
+            appId: "1:368901462318:web:6a709e5c88cd59c19782bf"
+        };
 
-        window.onload = loadMessages;
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-        async function loadMessages() {
-            try {
-                const response = await fetch(`https://api.github.com/gists/${d7e5242be9ba4317951d62e1d0db7251}`, {
-                    headers: { 'Authorization': `token ${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}` }
-                });
-                
-                if (response.ok) {
-                    const gist = await response.json();
-                    const content = gist.files['messages.txt'].content;
-                    const messages = content.split('\n');
-                    displayMessages(messages);
-                    document.getElementById('status').innerText = "Messages loaded!";
-                } else {
-                    document.getElementById('status').innerText = "Error loading messages.";
-                }
-            } catch (error) {
-                document.getElementById('status').innerText = "Failed to load messages.";
-                console.error("Load Error:", error);
-            }
-        }
+        // Reference to messages in the database
+        const messagesRef = database.ref('messages');
 
-        function displayMessages(messages) {
+        // Load existing messages and listen for new ones
+        messagesRef.on('child_added', snapshot => {
+            const message = snapshot.val();
+            displayMessage(message);
+        });
+
+        // Display a single message
+        function displayMessage(message) {
             const messagesDiv = document.getElementById('messages');
-            messagesDiv.innerHTML = '';
-            messages.forEach(message => {
-                if (message.trim()) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message';
-                    messageDiv.textContent = message;
-                    messagesDiv.appendChild(messageDiv);
-                }
-            });
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.textContent = message;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to latest message
         }
 
-        async function postMessage() {
+        // Post a new message to the Firebase Realtime Database
+        function postMessage() {
             const messageInput = document.getElementById('messageInput');
             const newMessage = messageInput.value.trim();
-            
-            if (!newMessage) {
-                document.getElementById('status').innerText = "Please type a message.";
-                return;
-            }
 
-            try {
-                const response = await fetch(`https://api.github.com/gists/${d7e5242be9ba4317951d62e1d0db7251}`, {
-                    method: 'GET',
-                    headers: { 'Authorization': `token ${G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}` }
-                });
-
-                if (response.ok) {
-                    const gist = await response.json();
-                    const currentContent = gist.files['messages.txt'].content;
-                    const updatedContent = currentContent + '\n' + newMessage;
-
-                    const saveResponse = await fetch(`https://api.github.com/gists/${d7e5242be9ba4317951d62e1d0db7251}`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Authorization': `token ${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}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            files: { 'messages.txt': { content: updatedContent } }
-                        })
-                    });
-
-                    if (saveResponse.ok) {
-                        document.getElementById('status').innerText = "Message posted!";
-                        messageInput.value = '';
-                        loadMessages();
-                    } else {
-                        const errorText = await saveResponse.text();
-                        document.getElementById('status').innerText = "Error posting message.";
-                        console.error("Save Response Error:", errorText);
-                    }
-                } else {
-                    const errorText = await response.text();
-                    document.getElementById('status').innerText = "Error loading current messages.";
-                    console.error("Initial Load Error:", errorText);
-                }
-            } catch (error) {
-                document.getElementById('status').innerText = "Failed to post message.";
-                console.error("Post Error:", error);
+            if (newMessage) {
+                messagesRef.push(newMessage); // Push the new message to Firebase
+                messageInput.value = ''; // Clear the input
             }
         }
     </script>
