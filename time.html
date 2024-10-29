@@ -1,0 +1,234 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Timetable</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background-color: #f0f4f8;
+color: #333;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+margin: 0;
+padding: 20px;
+}
+.container {
+width: 100%;
+max-width: 800px;
+margin: 10px auto;
+background-color: #fff;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+overflow: hidden;
+}
+h1, h2 {
+text-align: center;
+margin: 0;
+padding: 15px 0;
+color: #fff;
+}
+h2 {
+background-color: #007bff;
+}
+.table-wrapper {
+overflow-x: auto; /* Enable horizontal scroll on small screens */
+}
+table {
+width: 100%;
+border-collapse: collapse;
+min-width: 300px; /* Ensures the table keeps its structure on small screens */
+}
+th, td {
+padding: 12px;
+border-bottom: 1px solid #ddd;
+text-align: left;
+}
+th {
+background-color: #007bff;
+color: white;
+font-weight: bold;
+}
+.day1 h2 { background-color: #007bff; }
+.day2 h2 { background-color: #28a745; }
+.day3 h2 { background-color: #17a2b8; }
+.day1 td:first-child,
+.day2 td:first-child,
+.day3 td:first-child {
+font-weight: bold;
+background-color: #f8f9fa;
+}
+tr:nth-child(even) {
+background-color: #f2f2f2;
+}
+.note {
+text-align: center;
+font-size: 0.9em;
+color: #555;
+margin-top: 10px;
+font-style: italic;
+}
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+th, td {
+padding: 8px;
+}
+}
+</style>
+</head>
+<body>
+<div class="container day1">
+<h2>First Day</h2>
+<div class="table-wrapper">
+<table>
+<thead> <tr>
+<th>Time</th>
+<th>Activity</th>
+</tr>
+</thead> <tbody>
+<tr>
+<td>4:00 a.m.</td>
+<td>Departure from <span style="font-weight: bold;">SLIIT</span></td>
+</tr>
+<tr>
+<td>10:30 a.m.</td>
+<td>Arrive at <span style="font-weight: bold;">Ella Rock
+viewpoint</span></td>
+</tr>
+<tr>
+<td>2:00 p.m.</td>
+<td>Departure from <span style="font-weight: bold;">Ella Rock</span></td>
+</tr>
+<tr>
+<td>2:30 p.m.</td>
+<td>Lunch (Ella)</td>
+</tr>
+<tr>
+<td>3:00 p.m.</td>
+<td>Departure from Ella</td>
+</tr>
+<tr>
+<td>5:00 p.m.</td>
+<td>Arrive at <span style="font-weight: bold;">Victoria Park</span></td>
+</tr>
+<tr>
+<td>7:30 p.m.</td>
+<td>Departure from <span style="font-weight: bold;">Victoria Park</span></td>
+</tr>
+<tr>
+<td>8:00 p.m.</td>
+<td>Arrive at stay place</td>
+</tr>
+<tr>
+<td>8:30 p.m.</td>
+<td>Dinner</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="container day2">
+<h2>Second Day</h2>
+<div class="table-wrapper">
+<table>
+<thead> <tr>
+<th>Time</th>
+<th>Activity</th>
+</tr>
+</thead> <tbody>
+<tr>
+<td>8:00 a.m.</td>
+<td>Breakfast</td>
+</tr>
+<tr>
+<td>9:00 a.m.</td>
+<td>Departure from stay place</td>
+</tr>
+<tr>
+<td>9:50 a.m.</td>
+<td>Arrive at <span style="font-weight: bold;">Ambewala Farm</span></td>
+</tr>
+<tr>
+<td>11:30 a.m.</td>
+<td>Departure from <span style="font-weight: bold;">Ambewala Farm</span></td>
+</tr>
+<tr>
+<td>12:30 p.m.</td>
+<td>Arrive at <span style="font-weight: bold;">Horton Plains</span></td>
+</tr>
+<tr>
+<td>12:30 p.m.</td>
+<td>Lunch</td>
+</tr>
+<tr>
+<td>6:00 p.m.</td>
+<td>Departure from <span style="font-weight: bold;">Horton Plains</span></td>
+</tr>
+<tr>
+<td>7:30 p.m.</td>
+<td>Arrive at stay place</td>
+</tr>
+<tr>
+<td>8:00 p.m.</td>
+<td>Dinner</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="container day3">
+<h2>Third Day</h2>
+<div class="table-wrapper">
+<table>
+<thead> <tr>
+<th>Time</th>
+<th>Activity</th>
+</tr>
+</thead> <tbody>
+<tr>
+<td>8:00 a.m.</td>
+<td>Breakfast</td>
+</tr>
+<tr>
+<td>9:00 a.m.</td>
+<td>Departure from stay place</td>
+</tr>
+<tr>
+<td>9:10 a.m.</td>
+<td>Arrive at <span style="font-weight: bold;">Gregory Lake</span></td>
+</tr>
+<tr>
+<td>11:30 a.m.</td>
+<td>Departure from <span style="font-weight: bold;">Gregory Lake</span></td>
+</tr>
+<tr>
+<td>12:30 p.m.</td>
+<td>Arrive at <span style="font-weight: bold;">Bomburu Ella</span></td>
+</tr>
+<tr>
+<td>12:30 p.m.</td>
+<td>Lunch</td>
+</tr>
+<tr>
+<td>3:30 p.m.</td>
+<td>Departure from <span style="font-weight: bold;">Bomburu Ella</span></td>
+</tr>
+<tr>
+<td>7:00 p.m.</td>
+<td>Dinner</td>
+</tr>
+<tr>
+<td>10:30 p.m.</td>
+<td>Arrive at <span style="font-weight: bold;">Malabe</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="note">This is final . Any further updates will be provided as
+necessary.</p>
+</body>
+</html>
+
