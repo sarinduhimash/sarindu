@@ -28,10 +28,14 @@
             text-align: center;
             color: #333;
         }
+        .table-wrapper {
+            overflow-x: auto; /* Enable horizontal scroll on small screens */
+        }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            min-width: 600px; /* Ensures the table retains structure on smaller screens */
         }
         th, td {
             padding: 12px;
@@ -46,8 +50,8 @@
             background-color: #f1f1f1;
         }
         .highlight {
-            background-color: #ffcccc; /* Light red background for highlighted rows */
-            color: #c0392b; /* Darker red text */
+            background-color: #ffcccc;
+            color: #c0392b;
             font-weight: bold;
         }
         .note {
@@ -57,7 +61,11 @@
             text-align: center;
             font-style: italic;
         }
+        /* Responsive styling */
         @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
             th, td {
                 padding: 8px;
             }
@@ -67,18 +75,19 @@
 <body>
     <div class="container">
         <h1>Payment List</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Contact No.</th>
-                    <th>Advance Payment</th>
-                    <th>Full Payment</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>1</td><td>Aritha Hettiarachchi</td><td>725653643</td><td>Done</td><td></td></tr>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Contact No.</th>
+                        <th>Advance Payment</th>
+                        <th>Full Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr><td>1</td><td>Aritha Hettiarachchi</td><td>725653643</td><td>Done</td><td></td></tr>
                 <tr><td>2</td><td>Dileesha Chamudith</td><td>713653883</td><td>Done</td><td></td></tr>
                 <tr><td>3</td><td>Dumindu Chalith</td><td>713418663</td><td>Done</td><td></td></tr>
                 <tr><td>4</td><td>Isuru Samuditha</td><td>755308906</td><td>Done</td><td></td></tr>
@@ -111,8 +120,9 @@
                 <tr class="highlight"><td>30</td><td>Thissum Manmitha</td><td>763423683</td><td>Done</td><td></td></tr>
                 <tr class="highlight"><td>31</td><td>Anuk Perera</td><td>772039883</td><td>Done</td><td></td></tr>
                 <tr class="highlight"><td>32</td><td>Manula Rodrigo</td><td>757227033</td><td>Done</td><td></td></tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
         <p class="note">The data will be updated automatically, so no need for constant updates via WhatsApp groups.</p>
     </div>
 </body>
