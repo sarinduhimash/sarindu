@@ -14,8 +14,8 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
+            background-color: #aac28b;
+            color: #000000;
             padding: 20px;
             display: flex;
             justify-content: center;
@@ -26,18 +26,19 @@
         .budget-container {
             max-width: 800px;
             width: 100%;
-            background-color: #fff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            background-color: #dfcccc;
+            box-shadow: 0px 4px 12px rgba(198, 168, 168, 0.1);
+            border-radius: 10px;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         h1 {
             text-align: center;
             padding: 20px;
-            background-color: #32919e;
+            background-color: #88a1b2;
             color: white;
-            font-size: 24px;
+            font-size: 26px;
         }
 
         table {
@@ -46,18 +47,23 @@
         }
 
         th, td {
-            padding: 15px;
+            padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #370b0b;
         }
 
         th {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #3498db;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #d6e9f3;
         }
 
         .total {
-            background-color: #f3f4f6;
+            background-color: #7fd69c;
             font-weight: bold;
         }
 
@@ -65,18 +71,41 @@
             text-align: center;
             padding: 20px;
             font-size: 18px;
+            background-color: #8796a1;
+            color: rgb(0, 0, 0);
         }
 
         .highlight {
-            color: #0013ea;
+            color: #b60909;
             font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .budget-container {
+                width: 95%;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .footer {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="budget-container">
-    <h1>Trip Budget</h1>
+    <h1>Trip Budget Overview</h1>
 
     <table>
         <tr>
