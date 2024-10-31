@@ -82,3 +82,108 @@
     </div>
 </body>
 </html>
+<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Countdown </title>
+    <style>
+        /* Countdown Container Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f4f6;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+        }
+
+        .countdown-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #78a496;
+            color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+        }
+
+        .countdown-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: space-around;
+            font-size: 20px;
+        }
+
+        .countdown div {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .countdown div span {
+            display: block;
+            font-size: 40px;
+            font-weight: bold;
+            color: #ffdd59;
+        }
+    </style>
+</head>
+<body>
+
+<div class="countdown-container">
+    <h1>Trip එකට තව දවස් </h1>
+    <div class="countdown">
+        <div>
+            <span id="days">0</span>Days
+        </div>
+        <div>
+            <span id="hours">0</span>Hours
+        </div>
+        <div>
+            <span id="minutes">0</span>Minutes
+        </div>
+        <div>
+            <span id="seconds">0</span>Seconds
+        </div>
+    </div>
+</div>
+
+<script>
+    // Set the target date (November 4th)
+    const targetDate = new Date("November 4, 2024 00:00:00").getTime();
+
+    // Update the countdown every second
+    const countdownInterval = setInterval(function() {
+        const now = new Date().getTime();
+        const timeRemaining = targetDate - now;
+
+        // Calculate days, hours, minutes, and seconds
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        // Display the countdown
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+
+        // Check if the countdown is complete
+        if (timeRemaining < 0) {
+            clearInterval(countdownInterval);
+            document.querySelector(".countdown-container").innerHTML = "<h1>Event Started!</h1>";
+        }
+    }, 1000);
+</script>
+
+</body>
+</html>
