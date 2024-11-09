@@ -141,3 +141,71 @@ alt="GitHub Logo"> </a> </div>
 </html>
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to New Year</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #acafb5;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        #countdown {
+            text-align: center;
+        }
+
+        .timer {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+
+        .timer span {
+            font-weight: bold;
+            color: #ffdd57;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown">
+        <h1>Countdown to the New Year</h1>
+        <div class="timer">
+            <span id="days"></span> Days
+            <span id="hours"></span> Hours
+            <span id="minutes"></span> Minutes
+            <span id="seconds"></span> Seconds
+        </div>
+    </div>
+
+    <script>
+        function countdownToNewYear() {
+            const now = new Date();
+            const yearEnd = new Date(now.getFullYear() + 1, 0, 1);
+            const timeLeft = yearEnd - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+        }
+
+        // Initial call and interval to update countdown every second
+        countdownToNewYear();
+        setInterval(countdownToNewYear, 1000);
+    </script>
+</body>
+</html>
