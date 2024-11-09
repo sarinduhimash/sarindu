@@ -148,13 +148,14 @@ alt="GitHub Logo"> </a> </div>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown to New Year</title>
     <style>
+        /* Base styling */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #acafb5;
+            background-color: #c6cedc;
             color: #fff;
             font-family: Arial, sans-serif;
         }
@@ -172,6 +173,22 @@ alt="GitHub Logo"> </a> </div>
             font-weight: bold;
             color: #ffdd57;
             margin: 0 5px;
+        }
+
+        /* Responsive styling for mobile screens */
+        @media (max-width: 600px) {
+            .timer {
+                font-size: 1.5em;
+            }
+
+            h1 {
+                font-size: 1.2em;
+                margin: 0 10px;
+            }
+
+            .timer span {
+                margin: 0 2px;
+            }
         }
     </style>
 </head>
