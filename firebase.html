@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Reporting</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #form-container { max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        input, textarea, button { margin: 10px 0; width: 100%; }
+    </style>
+</head>
+<body>
+    <div id="form-container">
+        <h2>Report an Issue</h2>
+        <input type="file" id="photo" accept="image/*">
+        <textarea id="message" placeholder="Describe the issue..."></textarea>
+        <button onclick="uploadIssue()">Upload</button>
+    </div>
+    <div id="output"></div>
+
+    <script>
+       // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBgY4yFpBaTyZgjL27I0FTCHyQMuENIb30",
+  authDomain: "sliit-b6aab.firebaseapp.com",
+  projectId: "sliit-b6aab",
+  storageBucket: "sliit-b6aab.firebasestorage.app",
+  messagingSenderId: "653664989456",
+  appId: "1:653664989456:web:6ee61b893bd1764211f595",
+  measurementId: "G-SJ92B95588"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+        // Function to upload image and message
+        async function uploadIssue() {
+            const fileInput = document.getElementById('photo').files[0];
+            const message = document.getElementById('message').value;
+            
+            if (!fileInput || !message) {
+                alert("Please upload a photo and enter a message.");
+                return;
+            }
+
+            try {
+                // Upload the image to Firebase Storage
+                const storageRef = storage.ref('issues/' + fileInput.name);
+                await storageRef.put(fileInput);
+                const imageURL = await storageRef.getDownloadURL();
+
+                // Save the message and imageURL in Firestore
+                await db.collection('issues').add({ message, imageURL, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
+
+                alert("Issue uploaded successfully!");
+                displayIssues(); // Fetch and display issues after upload
+            } catch (error) {
+                console.error("Error uploading issue:", error);
+            }
+        }
+
+        // Function to display issues
+        async function displayIssues() {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ""; // Clear previous content
+
+            const querySnapshot = await db.collection('issues').orderBy('timestamp', 'desc').get();
+            querySnapshot.forEach(doc => {
+                const data = doc.data();
+                outputDiv.innerHTML += `
+                    <div style="border: 1px solid #ddd; margin-top: 10px; padding: 10px;">
+                        <img src="${data.imageURL}" alt="Issue Image" style="max-width: 100%;">
+                        <p>${data.message}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Fetch issues on page load
+        window.onload = displayIssues;
+    </script>
+</body>
+</html>
