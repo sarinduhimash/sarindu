@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Issue Reporting</title>
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <!-- Firebase SDKs for App, Firestore, and Storage -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         #form-container { max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
@@ -24,7 +24,7 @@
     <div id="output"></div>
 
     <script>
-       // Import the functions you need from the SDKs you need
+        // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
