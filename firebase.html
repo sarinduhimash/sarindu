@@ -3,89 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issue Reporting</title>
-    
-    <!-- Firebase Compatibility SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
-    
+    <title>Missing Cat</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        #form-container { max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
-        input, textarea, button { margin: 10px 0; width: 100%; }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffefd5;
+        }
+
+        .poster {
+            width: 80%;
+            max-width: 500px;
+            border: 5px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #ff6b6b;
+            margin: 0;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .details {
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.5em;
+        }
+
+        .reward {
+            font-size: 1.2em;
+            color: #ff4500;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .contact {
+            font-size: 1.3em;
+            color: #000;
+            background-color: #ffeb3b;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
-    <div id="form-container">
-        <h2>Report an Issue</h2>
-        <input type="file" id="photo" accept="image/*">
-        <textarea id="message" placeholder="Describe the issue..."></textarea>
-        <button onclick="uploadIssue()">Upload</button>
+    <div class="poster">
+        <h1>Missing Cat 🐾</h1>
+        <img src="cat.jpg" alt="Picture of Missing Cat">
+        <div class="details">
+            <p><strong>Last Seen:</strong> Monday, 11th (Near Dr. Pet Animal Clinic, Magalle)</p>
+            <p><strong>Description:</strong> Gray-striped cat with a cannula on front paw (covered with plaster). Recovering from mouth surgery (may be drooling). Very scared – approach with care.</p>
+        </div>
+        <div class="reward">Reward Offered 💰</div>
+        <div class="contact">If Found, Please Contact: 0715650572</div>
     </div>
-    <div id="output"></div>
-
-    <script>
-        // Firebase configuration (replace with your actual Firebase project config)
-        const firebaseConfig = {
-            apiKey: "AIzaSyBgY4yFpBaTyZgjL27I0FTCHyQMuENIb30",
-            authDomain: "sliit-b6aab.firebaseapp.com",
-            projectId: "sliit-b6aab",
-            storageBucket: "sliit-b6aab.firebasestorage.app",
-            messagingSenderId: "653664989456",
-            appId: "1:653664989456:web:6ee61b893bd1764211f595"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const storage = firebase.storage();
-        const db = firebase.firestore();
-
-        // Function to upload image and message
-        async function uploadIssue() {
-            const fileInput = document.getElementById('photo').files[0];
-            const message = document.getElementById('message').value;
-            
-            if (!fileInput || !message) {
-                alert("Please upload a photo and enter a message.");
-                return;
-            }
-
-            try {
-                // Upload the image to Firebase Storage
-                const storageRef = storage.ref('issues/' + fileInput.name);
-                await storageRef.put(fileInput);
-                const imageURL = await storageRef.getDownloadURL();
-
-                // Save the message and imageURL in Firestore
-                await db.collection('issues').add({ message, imageURL, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-
-                alert("Issue uploaded successfully!");
-                displayIssues(); // Fetch and display issues after upload
-            } catch (error) {
-                console.error("Error uploading issue:", error);
-            }
-        }
-
-        // Function to display issues
-        async function displayIssues() {
-            const outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = ""; // Clear previous content
-
-            const querySnapshot = await db.collection('issues').orderBy('timestamp', 'desc').get();
-            querySnapshot.forEach(doc => {
-                const data = doc.data();
-                outputDiv.innerHTML += `
-                    <div style="border: 1px solid #ddd; margin-top: 10px; padding: 10px;">
-                        <img src="${data.imageURL}" alt="Issue Image" style="max-width: 100%;">
-                        <p>${data.message}</p>
-                    </div>
-                `;
-            });
-        }
-
-        // Fetch issues on page load
-        window.onload = displayIssues;
-    </script>
 </body>
 </html>
