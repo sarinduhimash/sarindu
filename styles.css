@@ -1,15 +1,16 @@
 /* styles.css */
 
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background: linear-gradient(to bottom, #4fc3f7, #e1f5fe);
     color: #333;
-    background: linear-gradient(to bottom, #84c0ff, #b8e0d2);
 }
 
 header {
-    background-color: #005b96;
+    background-color: #0288d1;
     color: white;
     text-align: center;
     padding: 20px 10px;
@@ -18,30 +19,30 @@ header {
 header h1 {
     margin: 0;
     font-size: 2.5rem;
-    font-family: 'Georgia', serif;
+}
+
+header p {
+    margin: 5px 0;
+    font-size: 1.2rem;
+    font-style: italic;
 }
 
 main {
     padding: 20px;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    background-color: white;
+    background: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
-.intro {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
+/* Image Slider */
 .image-slider {
     position: relative;
     width: 100%;
-    max-width: 400px;
-    margin: 10px auto;
+    max-width: 600px;
+    margin: 20px auto;
     overflow: hidden;
-    border: 3px solid #005b96;
     border-radius: 8px;
 }
 
@@ -53,7 +54,7 @@ main {
 .slider-image {
     width: 100%;
     flex-shrink: 0;
-    transition: transform 0.5s ease-in-out;
+    border: 3px solid #0288d1;
 }
 
 @keyframes slide {
@@ -65,11 +66,19 @@ main {
     }
 }
 
-.details h2 {
-    text-align: center;
-    color: #005b96;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
+/* Sections */
+.details, .how-it-works, .mechanism {
+    margin-bottom: 20px;
+}
+
+.details ul {
+    list-style: square;
+    padding-left: 20px;
+}
+
+.details li {
+    margin: 10px 0;
+    font-size: 1.1rem;
 }
 
 table {
@@ -81,26 +90,28 @@ table {
 table th, table td {
     padding: 10px;
     text-align: left;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
 }
 
 table th {
-    background-color: #005b96;
+    background-color: #0288d1;
     color: white;
 }
 
 table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f9f9f9;
 }
 
+/* Footer */
 footer {
     text-align: center;
     margin-top: 20px;
-    color: #005b96;
+    font-size: 0.9rem;
+    color: #0288d1;
 }
 
 footer a {
-    color: #005b96;
+    color: #0288d1;
     text-decoration: none;
     font-weight: bold;
 }
@@ -112,7 +123,11 @@ footer a:hover {
 /* Responsive Design */
 @media (max-width: 600px) {
     header h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
     }
 
     table th, table td {
