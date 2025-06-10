@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Countdown Timer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f4f7f6;
+            border-radius: 10px;
+            border: 1px solid #dfe6e9;
+        }
+
+        .countdown h2 {
+            font-size: 1.5em;
+            color: #34495e;
+            margin: 0 0 10px;
+        }
+
+        .time {
+            font-size: 1.2em;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .study-time {
+            margin-top: 30px;
+            padding: 15px;
+            background: #e8f4f3;
+            border-radius: 10px;
+        }
+
+        .study-time h2 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin: 0 0 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .countdown h2, .study-time h2 {
+                font-size: 1.3em;
+            }
+
+            .time {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exam Countdown Timer</h1>
+        
+        <div class="countdown">
+            <h2>English Paper (June 14, 12:00 PM)</h2>
+            <div id="english" class="time"></div>
+        </div>
+
+        <div class="countdown">
+            <h2>Dynamics Paper (June 16, 12:00 PM)</h2>
+            <div id="dynamics" class="time"></div>
+        </div>
+
+        <div class="countdown">
+            <h2>Calculus Paper (June 18, 12:00 PM)</h2>
+            <div id="calculus" class="time"></div>
+        </div>
+
+        <div class="countdown">
+            <h2>Engineering Skills Paper (June 19, 12:00 PM)</h2>
+            <div id="engineering" class="time"></div>
+        </div>
+
+         <div class="study-time">
+            <h2>Study Time Left (Until June 19, 2:00 PM - 10 hours)</h2>
+            <div id="study-time" class="time"></div>
+        </div>
+    </div>
+
+    <script>
+        function formatTimeRemaining(ms) {
+            if (ms <= 0) return "Event has passed";
+            const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+            return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            // Set timezone to IST (+05:30)
+            now.setHours(now.getHours() + (now.getTimezoneOffset() / 60) + 5.5);
+
+            const events = {
+                english: new Date("2025-06-14T12:00:00+05:30"),
+                dynamics: new Date("2025-06-16T12:00:00+05:30"),
+                calculus: new Date("2025-06-18T12:00:00+05:30"),
+                engineering: new Date("2025-06-19T12:00:00+05:30"),
+                allPapers: new Date("2025-06-19T14:00:00+05:30")
+            };
+
+            try {
+                for (const [id, eventDate] of Object.entries(events)) {
+                    const timeLeft = eventDate.getTime() - now.getTime();
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.textContent = formatTimeRemaining(timeLeft);
+                    }
+                }
+
+                const studyTimeEnd = new Date("2025-06-19T14:00:00+05:30");
+                const studyTimeLeft = studyTimeEnd.getTime() - now.getTime() - (10 * 60 * 60 * 1000);
+                const studyElement = document.getElementById("study-time");
+                if (studyElement) {
+                    studyElement.textContent = formatTimeRemaining(studyTimeLeft);
+                }
+            } catch (error) {
+                console.error("Error updating countdown:", error);
+            }
+        }
+
+        // Initial update and refresh every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
