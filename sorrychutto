@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Date Tracker – Cycle Status</title>
+  <style>
+    :root {
+      --accent: #e63946;
+      --bg: #f1faee;
+      --card-bg: #ffffff;
+      --text: #1d3557;
+    }
+    * {box-sizing:border-box;margin:0;padding:0;}
+    body {
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      padding:1rem;
+      color:var(--text);
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 420px;
+      width:100%;
+    }
+    h1 {
+      text-align:center;
+      margin-bottom:1.5rem;
+      font-size:2rem;
+      color:var(--accent);
+    }
+    label {
+      font-weight:600;
+      display:block;
+      margin-bottom:.5rem;
+    }
+    input[type="date"] {
+      width:100%;
+      padding:.5rem .75rem;
+      font-size:1rem;
+      border:1px solid #ccc;
+      border-radius:.5rem;
+      margin-bottom:1.5rem;
+    }
+    .status-title {
+      font-size:1.25rem;
+      font-weight:700;
+      margin-bottom:.25rem;
+    }
+    .status-desc {
+      margin-bottom:.75rem;
+      line-height:1.4;
+    }
+    .chip {
+      display:inline-block;
+      padding:.25rem .75rem;
+      border-radius:9999px;
+      background:var(--accent);
+      color:#fff;
+      font-size:.75rem;
+      font-weight:600;
+    }
+    @media (max-width:480px){
+      .card{padding:1.25rem;}
+      h1{font-size:1.5rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Sarindu tracker</h1>
+    <label for="datePicker">Select a date</label>
+    <input type="date" id="datePicker">
+    <div id="output"></div>
+  </div>
+
+<script>
+  // Starting day of cycle (Day 1 – menstrual cramps)
+  const cycleStart = new Date('2025-07-03');  // adjust here if her first day changes
+  const cycleLength = 28; // average cycle length in days
+
+  const phases = [
+    {name:'Menstrual', days:[0,4], desc:'She is on her period. Cramps, low energy, and bleeding are common.'},
+    {name:'Follicular', days:[5,12], desc:'Energy rises as estrogen builds. Good time for creativity and workouts.'},
+    {name:'Ovulation', days:[13,14], desc:'Peak fertility window. She may feel more social and confident.'},
+    {name:'Luteal', days:[15,27], desc:'Progesterone dominates. Mood is steady early, then PMS may appear near the end.'}
+  ];
+
+  const picker = document.getElementById('datePicker');
+  const output = document.getElementById('output');
+
+  // default to today
+  const today = new Date();
+  picker.valueAsDate = today;
+  updateStatus(today);
+
+  picker.addEventListener('change', (e) => {
+    const date = e.target.valueAsDate;
+    if (date) updateStatus(date);
+  });
+
+  function updateStatus(targetDate){
+    // difference in days from cycle start
+    const diffMs = targetDate - cycleStart;
+    const daysElapsed = Math.floor(diffMs / (1000*60*60*24));
+
+    if(daysElapsed < 0){
+      output.innerHTML = `<p>Selected date is before the reference cycle start (3 July 2025). No data available.</p>`;
+      return;
+    }
+
+    const dayOfCycle = daysElapsed % cycleLength;
+    const phase = phases.find(p => dayOfCycle >= p.days[0] && dayOfCycle <= p.days[1]);
+
+    // Next expected period calculation
+    const cyclesPassed = Math.ceil(daysElapsed / cycleLength);
+    const nextPeriodDate = new Date(cycleStart.getTime() + cyclesPassed * cycleLength * 24*60*60*1000);
+
+    output.innerHTML = `
+      <div class="status-title">${phase.name} Phase <span class="chip">Day ${dayOfCycle + 1} / ${cycleLength}</span></div>
+      <p class="status-desc">${phase.desc}</p>
+      <p><strong>Next expected period:</strong> ${nextPeriodDate.toLocaleDateString(undefined, {day:'numeric', month:'short', year:'numeric'})}</p>
+      <small>Calculated from reference start date 3 July 2025.<br> <b>Created by Sarindu Willaddarage , and Chutto dont get stressed as only the ones with the relevant link can see this page. And no one will see this page .</b>
+        <br> <b>K.P.M</small>
+    `;
+  }
+</script>
+</body>
+</html>
