@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Seed Phrase Validator</title>
+  <script src="https://cdn.jsdelivr.net/npm/bip39@3.0.4/browser/bip39.min.js"></script>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
+    textarea { width: 100%; height: 100px; font-size: 1em; }
+    button { padding: 10px 20px; font-size: 1em; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>🔐 Seed Phrase Validator (Local Only)</h2>
+  <p>Enter your 12 or 24-word seed phrase below to check if it is a valid BIP-39 phrase. This tool runs <strong>100% in your browser</strong> — no data is sent anywhere.</p>
+  
+  <textarea id="seedInput" placeholder="Enter your seed phrase here..."></textarea><br>
+  <button onclick="checkSeed()">Validate Seed</button>
+
+  <div id="result"></div>
+
+  <p style="font-size: 0.9em; color: gray;">
+    ⚠️ Disclaimer: Never enter your real seed phrase into any website you do not fully trust. This tool does not store, send, or save anything.
+  </p>
+
+  <script>
+    function checkSeed() {
+      const phrase = document.getElementById('seedInput').value.trim().toLowerCase();
+      const isValid = bip39.validateMnemonic(phrase);
+      const result = document.getElementById('result');
+      if (isValid) {
+        result.textContent = "✅ This is a valid BIP-39 seed phrase.";
+        result.style.color = "green";
+      } else {
+        result.textContent = "❌ Invalid seed phrase.";
+        result.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
